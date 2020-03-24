@@ -1,6 +1,7 @@
 ﻿RunDatepicker = function (DatepickerContainer, options) {
 
     var datepicker = DatepickerContainer.querySelectorAll('input');
+    var instance;
 
     function getDatepickerOptions () {
         return {
@@ -57,19 +58,58 @@
         };
     }
 
-    function initFlatpickr () {
-        if (datepicker.length) {
-            var instance;
-            var _opts = getFlatpiockrOptions();
-            [].forEach.call(datepicker, function (el) {
-                el.addEventListener('change', function (evt) {
-                    var value = evt.currentTarget.value;
-                    try {
-                        instance.setDate(instance.parseDate(value, _opts.dateFormat));
-                    } catch (e) { }
+    function setDateToFlatpickr(element) {
+        element.addEventListener('change', function (evt) {
+            var value = evt.currentTarget.value;
+            try {
+                instance.setDate(instance.parseDate(value, _opts.dateFormat));
+            } catch (e) { }
+        });
+    }
+
+    function initFlatpickrOnLoad(_opts) {
+        [].forEach.call(datepicker, function (element) {
+            setDateToFlatpickr(element);
+        });
+        instance = flatpickr(datepicker, _opts);
+    }
+
+    function initFlatpickrOnClick(_opts) {
+        var btn = DatepickerContainer.querySelector('.flatpickr-open');
+        if (btn) {
+            var element = btn.parentElement.querySelector('input');
+            btn.addEventListener('click', function (evt) {
+                var value = element.value;
+                setDateToFlatpickr(element);
+                instance = flatpickr(element, _opts);
+
+                if (value) {
+                    instance.setDate(instance.parseDate(value, _opts.dateFormat));
+                }
+
+                instance.open();
+
+                instance.config.onClose.push(function () {
+                    value = element.value;
+
+                    setTimeout(function () {
+                        instance.destroy();
+                        element.value = value;
+                    }, 10)
                 });
             });
-            instance = flatpickr(datepicker, _opts);
+        }
+    }
+
+    function initFlatpickr () {
+        if (datepicker.length) {
+            var _opts = getFlatpiockrOptions();
+ 
+            if (options.openOn === 'click') {
+                initFlatpickrOnClick(_opts);
+            } else {
+                initFlatpickrOnLoad(_opts);
+            }
         }
     }
 

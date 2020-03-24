@@ -24,6 +24,9 @@ namespace Transferalize
         [Parameter]
         public string Format { get; set; } = "";
 
+        [Parameter]
+        public string OpenOn { get; set; } = "load";
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -40,7 +43,8 @@ namespace Transferalize
             {
                 Lang = Lang,
                 Type = Type,
-                Format = Format
+                Format = Format,
+                OpenOn = OpenOn
             };
         }
 
