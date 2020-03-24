@@ -75,7 +75,8 @@
     }
 
     function initFlatpickrOnClick(_opts) {
-        var btn = DatepickerContainer.querySelector('.flatpickr-open');
+        createButtonElement();
+        var btn = DatepickerContainer.querySelector('.datepicker-open');
         if (btn) {
             var element = btn.parentElement.querySelector('input');
             btn.addEventListener('click', function (evt) {
@@ -111,6 +112,16 @@
                 initFlatpickrOnLoad(_opts);
             }
         }
+    }
+
+    function createButtonElement(element) {
+        var btn = document.createElement("BUTTON");
+        btn.setAttribute('class', 'datepicker-open');
+        btn.setAttribute('type', 'button');
+        btn.innerHTML = "Abrir";
+        [].forEach.call(datepicker, function (element) {
+            element.parentNode.insertBefore(btn, element.nextSibling);
+        });
     }
 
     if (options.type === 'flatpickr') {
