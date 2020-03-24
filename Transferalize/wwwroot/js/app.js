@@ -59,8 +59,17 @@
 
     function initFlatpickr () {
         if (datepicker.length) {
+            var instance;
             var _opts = getFlatpiockrOptions();
-            flatpickr(datepicker, _opts);
+            [].forEach.call(datepicker, function (el) {
+                el.addEventListener('change', function (evt) {
+                    var value = evt.currentTarget.value;
+                    try {
+                        instance.setDate(instance.parseDate(value, _opts.dateFormat));
+                    } catch (e) { }
+                });
+            });
+            instance = flatpickr(datepicker, _opts);
         }
     }
 
@@ -71,3 +80,15 @@
     }
     
 }
+
+
+RunTextMask = function (TextMaskContainer, options) {
+    console.log(TextMaskContainer, options);
+    var field = TextMaskContainer.querySelector('input')
+    if (field) {
+        $(field).mask(options.pattern, {
+            reverse: options.reverse
+        });
+
+    }
+} 

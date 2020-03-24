@@ -10,20 +10,25 @@
 
         <div>
             <Datepicker Lang="en">
-                <InputText @bind-Value="_exampleModel.Birthdate" class="form-control" />
+                <InputText @bind-Value="_exampleModel.Birthdate" class="form-control" inputmode="numeric" />
             </Datepicker>
             @_exampleModel.Birthdate
         </div>
 
         <div>
             <Datepicker Type="flatpickr">
-                <InputText @bind-Value="_exampleModel.Birthdate2" class="form-control" />
+                <TextMask Pattern="00-00-0000">
+                    <InputText @bind-Value="_exampleModel.Birthdate2" class="form-control" />
+                </TextMask>
             </Datepicker>
             @_exampleModel.Birthdate2
         </div>
 
         <div>
-            <InputText @bind-Value="_exampleModel.Number" class="form-control maskedinput" data-pattern="99-9999999" />
+            <TextMask Pattern="#.##0,00" Reverse="true">
+                <InputText @bind-Value="_exampleModel.Number" class="form-control" />
+            </TextMask>
+            @_exampleModel.Number
         </div>
 
         <div>
