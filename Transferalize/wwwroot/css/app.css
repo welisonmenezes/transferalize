@@ -7,3 +7,15 @@
 .datepicker-footer {
     display: none;
 }
+.datepicker-day-button:hover {
+    background-color: rgba(43,161,150,0.25);
+}
+
+.flatpickr-current-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flatpickr-monthDropdown-months {
+    display: block;
+}

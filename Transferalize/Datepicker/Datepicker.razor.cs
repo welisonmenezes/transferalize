@@ -23,7 +23,7 @@ namespace Transferalize
         public string Type { get; set; }
 
         [Parameter]
-        public string Format { get; set; } = "dd/mm/yyyy";
+        public string Format { get; set; } = "";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
