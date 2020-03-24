@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Transferalize.Components
+namespace Transferalize
 {
     public class DatepickerBase : ComponentBase
     {
@@ -13,12 +14,14 @@ namespace Transferalize.Components
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
+        [Parameter]
+        public Dictionary<string, string> Options { get; set; }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await JSInterop.InvokeAsync<string>("console.log", DatepickerContainer);
-                await JSInterop.InvokeAsync<string>("RunPickdate", DatepickerContainer);
+                _ = await JSInterop.InvokeAsync<string>("RunPickdate", DatepickerContainer, Options);
             }
         }
     }

@@ -1,9 +1,43 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<Datepicker>
-    <input type="text" />
-</Datepicker>
+    <div>
+        <InputText @bind-Value="_exampleModel.Name" class="form-control" />
+    </div>
 
-Welcome to your new app.
+    <div>
+        <Datepicker Options="@options">
+            <InputText @bind-Value="_exampleModel.Birthdate" class="form-control datepicker" />
+        </Datepicker>
+        @_exampleModel.Birthdate
+    </div>
+
+    <div>
+        <InputText @bind-Value="_exampleModel.Number" class="form-control maskedinput" data-pattern="99-9999999" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+    <a class="waves-effect waves-light btn">button</a>
+    <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+    <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</a>
+
+</EditForm>
+
+@code {
+    private ExampleModel _exampleModel = new ExampleModel();
+
+    Dictionary<string, string> options = new Dictionary<string, string>() {
+        { "format", "dd/mm/yyyy" }
+    };
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}

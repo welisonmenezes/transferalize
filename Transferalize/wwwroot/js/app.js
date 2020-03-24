@@ -1,7 +1,7 @@
-﻿RunPickdate = function (DatepickerContainer) {
-    alert(DatepickerContainer)
-    var datepicker = DatepickerContainer.querySelector('input');
+﻿RunPickdate = function (DatepickerContainer, options) {
+    var datepicker = DatepickerContainer.querySelectorAll('input');
     if (datepicker.length) {
-        console.log(datepicker);
+        var _opts = (options) ? options : {};
+        M.Datepicker.init(datepicker, _opts);
     }
 }
