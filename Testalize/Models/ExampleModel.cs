@@ -10,5 +10,8 @@ public class ExampleModel
     public string Birthdate { get; set; }
 
     [Required]
+    public string Birthdate2 { get; set; }
+
+    [Required]
     public string Number { get; set; }
 }

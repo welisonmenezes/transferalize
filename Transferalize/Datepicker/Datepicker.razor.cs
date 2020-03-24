@@ -9,20 +9,41 @@ namespace Transferalize
     {
         public ElementReference DatepickerContainer;
 
+        public DatepickerOptions DpkrOpts { get; set; }
+
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
         [Parameter]
-        public Dictionary<string, string> Options { get; set; }
+        public string Lang { get; set; } = "pt-BR";
+
+        [Parameter]
+        public string Type { get; set; }
+
+        [Parameter]
+        public string Format { get; set; } = "dd/mm/yyyy";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                _ = await JSInterop.InvokeAsync<string>("RunPickdate", DatepickerContainer, Options);
+                SetOptionsByParameters();
+                _ = await JSInterop.InvokeAsync<string>("RunDatepicker", DatepickerContainer, DpkrOpts);
+                StateHasChanged();
             }
         }
+
+        private void SetOptionsByParameters()
+        {
+            DpkrOpts = new DatepickerOptions
+            {
+                Lang = Lang,
+                Type = Type,
+                Format = Format
+            };
+        }
+
     }
 }

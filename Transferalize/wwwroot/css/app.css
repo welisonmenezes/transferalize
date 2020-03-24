@@ -1,0 +1,9 @@
+﻿.datepicker-modal {
+    max-width: 340px;
+}
+.datepicker-date-display {
+    display: none;
+}
+.datepicker-footer {
+    display: none;
+}
