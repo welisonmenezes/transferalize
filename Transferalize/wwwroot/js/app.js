@@ -237,7 +237,6 @@ function _updateDateInputText(datepicker) {
 
         var label = element.parentElement.querySelector('label');
         var placeholder = element.getAttribute('placeholder');
-        console.log(placeholder)
         if (label && !element.value && !placeholder) {
             label.classList.remove('active')
         } else if (label && (element.value || placeholder)) {
