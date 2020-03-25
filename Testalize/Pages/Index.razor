@@ -9,10 +9,22 @@
         </div>
 
         <div>
-            <Datepicker Lang="en">
-                <InputText @bind-Value="_exampleModel.Birthdate" class="form-control" inputmode="numeric" />
+            <Datepicker Lang="en" OpenOn="click">
+                <TextMask Pattern="00-00-0000">
+                    <InputText @bind-Value="_exampleModel.Birthdate" class="form-control" inputmode="numeric" />
+                </TextMask>
             </Datepicker>
             @_exampleModel.Birthdate
+        </div>
+
+        <div>
+            <Datepicker Lang="en">
+                <InputText @bind-Value="@dat" class="form-control" inputmode="numeric" />
+            </Datepicker>
+            @code {
+                string dat;
+            }
+
         </div>
 
         <div>

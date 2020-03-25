@@ -1,7 +1,12 @@
 ﻿RunDatepicker = function (DatepickerContainer, options) {
 
     var datepicker = DatepickerContainer.querySelectorAll('input');
-    var instance;
+    var instance, timer;
+
+
+    /* **********************************************************
+     * DATEPICKER
+     * **********************************************************/
 
     function getDatepickerOptions () {
         return {
@@ -23,17 +28,84 @@
         };
     }
 
+    function initDatepickerOnLoad(_opts) {
+        M.Datepicker.init(datepicker, _opts);
+    }
+
+    function initDatepickerOnClick(_opts) {
+        createButtonElement();
+        var btn = DatepickerContainer.querySelector('.datepicker-open');
+        if (btn) {
+            var elements = btn.parentElement.querySelectorAll('input');
+            btn.addEventListener('click', function (evt) {
+                evt.stopPropagation();
+
+                var element = evt.currentTarget.parentElement.querySelector('input');
+
+                M.Datepicker.init(elements, _opts);
+                instance = M.Datepicker.getInstance(element);
+
+                if (instance) {
+
+                    if (element.value) {
+                        try {
+                            var date = Date.parse(element.value);
+                            if (date) {
+                                instance.gotoDate(date);
+                            }
+                        } catch (e) { }
+                    }
+
+                    instance.options.onClose = function () {
+                        destroyDatepicker();
+                    };
+
+                    document.removeEventListener('click', destroyDatepicker);
+                    document.addEventListener('click', destroyDatepicker);
+                    document.querySelector('.datepicker-modal').addEventListener('click', function (evt) {
+                        evt.stopPropagation();
+                    });
+
+                    instance.open();
+                }
+
+               
+                
+            });
+        }
+    }
+
+    function destroyDatepicker() {
+        if (instance) {
+            try {
+                instance.destroy();
+                instance = null;
+            } catch (e) { }
+        }
+    }
+
     function initDatepicker() {
         if (datepicker.length) {
             var _opts = getDatepickerOptions();
             _opts.onSelect = function () {
-                [].forEach.call(datepicker, function (el) {
-                    el.parentElement.querySelector('.datepicker-done').click();
+                [].forEach.call(datepicker, function (element) {
+                    element.parentElement.querySelector('.datepicker-done').click();
                 });
             }
-            M.Datepicker.init(datepicker, _opts);
+
+            if (options.openOn === 'click') {
+                initDatepickerOnClick(_opts);
+            } else {
+                initDatepickerOnLoad(_opts);
+            }
         }
     }
+
+
+
+    /* **********************************************************
+     * FLATPICKR
+     * **********************************************************/
 
     function getFlatpiockrOptions() {
         return {
@@ -93,7 +165,8 @@
                 instance.config.onClose.push(function () {
                     value = element.value;
 
-                    setTimeout(function () {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
                         instance.destroy();
                         element.value = value;
                     }, 10)
@@ -134,7 +207,6 @@
 
 
 RunTextMask = function (TextMaskContainer, options) {
-    console.log(TextMaskContainer, options);
     var field = TextMaskContainer.querySelector('input')
     if (field) {
         $(field).mask(options.pattern, {
