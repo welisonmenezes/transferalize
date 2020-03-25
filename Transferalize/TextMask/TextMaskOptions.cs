@@ -7,5 +7,7 @@
         public bool Reverse { get; set; }
 
         public bool Clear { get; set; }
+
+        public string Type { get; set; }
     }
 }

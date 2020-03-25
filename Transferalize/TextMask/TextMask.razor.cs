@@ -24,6 +24,9 @@ namespace Transferalize
         [Parameter]
         public bool Clear { get; set; } = false;
 
+        [Parameter]
+        public string Type { get; set; } = "Default";
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -40,7 +43,8 @@ namespace Transferalize
             {
                 Pattern = Pattern,
                 Reverse = Reverse,
-                Clear = Clear
+                Clear = Clear,
+                Type = Type
             };
         }
 

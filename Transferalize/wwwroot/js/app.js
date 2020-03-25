@@ -7,27 +7,6 @@
      * DATEPICKER
      * **********************************************************/
 
-    function getDatepickerOptions () {
-        return {
-            'format': (options.format) ? options.format : 'dd-mm-yyyy',
-            'i18n': (options.lang && options.lang === 'pt-BR') ? getDatepickerPTBR() : null,
-            'setDefaultDate': false
-        }
-    }
-
-    function getDatepickerPTBR() {
-        return {
-            cancel: 'Cancelar',
-            clear: 'Limpar',
-            done: 'Ok',
-            months: ['Janeiro', 'Fevereio', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-            weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-        };
-    }
-
     function initDatepickerOnLoad(_opts) {
         [].forEach.call(datepicker, function (element) {
             M.Datepicker.init(element, _opts);
@@ -35,7 +14,9 @@
     }
 
     function initDatepickerOnClick(_opts) {
-        createButtonElement();
+
+        _createButtonElement(datepicker);
+
         var btn = DatepickerContainer.querySelector('.datepicker-open');
         if (btn) {
             var elements = btn.parentElement.querySelectorAll('input');
@@ -56,9 +37,6 @@
 
                     document.removeEventListener('click', destroyDatepicker);
                     document.addEventListener('click', destroyDatepicker);
-                    document.querySelector('.datepicker-modal').addEventListener('click', function (evt) {
-                        evt.stopPropagation();
-                    });
 
                     instance.open();
                 }
@@ -78,7 +56,7 @@
 
     function initDatepicker() {
         if (datepicker.length) {
-            var _opts = getDatepickerOptions();
+            var _opts = _getDatepickerOptions(options);
 
             // execute when datepicker modal opens
             _opts.onOpen = function () {
@@ -86,9 +64,12 @@
 
                 // set default date
                 if (self.el.value) {
-                    setTimeout(function () {
+
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
                         self.setDate(_getEnglishFormatDate(self.options.format, self.el.value));
                     });
+
                 }
 
                 // trigger done btn to close on select date
@@ -96,10 +77,17 @@
                     var btns = self.modal.el.querySelectorAll('.datepicker-day-button');
                     [].forEach.call(btns, function (btn) {
                         btn.addEventListener('click', function () {
-                            setTimeout(function () {
+
+                            clearTimeout(timer);
+                            timer = setTimeout(function () {
                                 self.doneBtn.click();
-                            })
+                            });
+
                         });
+                    });
+
+                    self.modal.el.addEventListener('click', function (evt) {
+                        evt.stopPropagation();
                     });
                 });
             }
@@ -120,28 +108,7 @@
      * FLATPICKR
      * **********************************************************/
 
-    function getFlatpiockrOptions() {
-        return {
-            'dateFormat': (options.format) ? options.format : 'd-m-Y',
-            'locale': (options.lang && options.lang === 'pt-BR') ? getFlatpickrPTBR() : null,
-            'allowInput': true
-        }
-    }
-
-    function getFlatpickrPTBR() {
-        return {
-            weekdays: {
-                shorthand: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                longhand: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            },
-            months: {
-                shorthand: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                longhand: ['Janeiro', 'Fevereio', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            },
-            rangeSeparator: ' até ',
-            time_24hr: true,
-        };
-    }
+    
 
     function setDateToFlatpickr(element) {
         element.addEventListener('change', function (evt) {
@@ -160,7 +127,9 @@
     }
 
     function initFlatpickrOnClick(_opts) {
-        createButtonElement();
+
+        _createButtonElement(datepicker);
+
         var btn = DatepickerContainer.querySelector('.datepicker-open');
         if (btn) {
             var element = btn.parentElement.querySelector('input');
@@ -182,7 +151,7 @@
                     timer = setTimeout(function () {
                         instance.destroy();
                         element.value = value;
-                    }, 10)
+                    })
                 });
             });
         }
@@ -190,7 +159,7 @@
 
     function initFlatpickr () {
         if (datepicker.length) {
-            var _opts = getFlatpiockrOptions();
+            var _opts = _getFlatpiockrOptions(options);
  
             if (options.openOn === 'click') {
                 initFlatpickrOnClick(_opts);
@@ -200,15 +169,7 @@
         }
     }
 
-    function createButtonElement(element) {
-        var btn = document.createElement("BUTTON");
-        btn.setAttribute('class', 'datepicker-open');
-        btn.setAttribute('type', 'button');
-        btn.innerHTML = "Abrir";
-        [].forEach.call(datepicker, function (element) {
-            element.parentNode.insertBefore(btn, element.nextSibling);
-        });
-    }
+    
 
     if (options.type === 'flatpickr') {
         initFlatpickr();
@@ -222,10 +183,16 @@
 RunTextMask = function (TextMaskContainer, options) {
     var field = TextMaskContainer.querySelector('input');
     if (field) {
-        $(field).mask(options.pattern, {
-            reverse: options.reverse,
-            clearIfNotMatch: options.clear
-        });
+
+        if (options.type === 'Currency') {
+            $(field).maskMoney();
+        } else {
+            $(field).mask(options.pattern, {
+                reverse: options.reverse,
+                clearIfNotMatch: options.clear
+            });
+        }
+        
         field.addEventListener('blur', function () {
             field.dispatchEvent(new Event('change', { 'bubbles': true }));
         });
@@ -242,9 +209,18 @@ RunUpdateInputText = function () {
 
 
 
+
+
+
+
+
+
+
+
 function _getEnglishFormatDate(format, date) {
     var arDate;
     var retDate = date;
+
     if (format === 'dd-mm-yyyy') {
         arDate = date.split('-');
         retDate = arDate[1] + '-' + arDate[0] + '-' + arDate[2];
@@ -261,4 +237,78 @@ function _getEnglishFormatDate(format, date) {
     }
 
     return retDate;
+}
+
+
+function _getFlatpickerFormatDate(format) {
+
+    var retFormat = 'd-m-Y';
+
+    if (format === 'dd-mm-yyyy') {
+        retFormat = 'd-m-Y';
+    }
+
+    if (format === 'dd/mm/yyyy') {
+        retFormat = 'd/m/Y'
+    }
+
+    if (format === 'mm/dd/yyyy') {
+        retFormat = 'm/d/Y'
+    }
+
+    return retFormat;
+}
+
+function _getDatepickerOptions(options) {
+    return {
+        'format': (options.format) ? options.format : 'dd-mm-yyyy',
+        'i18n': (options.lang && options.lang === 'pt-BR') ? _getDatepickerPTBR() : null,
+        'setDefaultDate': false
+    }
+}
+
+function _getDatepickerPTBR() {
+    return {
+        cancel: 'Cancelar',
+        clear: 'Limpar',
+        done: 'Ok',
+        months: ['Janeiro', 'Fevereio', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+        weekdaysAbbrev: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+    };
+}
+
+function _getFlatpiockrOptions(options) {
+    return {
+        'dateFormat': _getFlatpickerFormatDate(options.format),
+        'locale': (options.lang && options.lang === 'pt-BR') ? _getFlatpickrPTBR() : null,
+        'allowInput': true
+    }
+}
+
+function _getFlatpickrPTBR() {
+    return {
+        weekdays: {
+            shorthand: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+            longhand: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        },
+        months: {
+            shorthand: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            longhand: ['Janeiro', 'Fevereio', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        },
+        rangeSeparator: ' até ',
+        time_24hr: true,
+    };
+}
+
+function _createButtonElement(datepicker) {
+    var btn = document.createElement("BUTTON");
+    btn.setAttribute('class', 'datepicker-open');
+    btn.setAttribute('type', 'button');
+    btn.innerHTML = "Abrir";
+    [].forEach.call(datepicker, function (element) {
+        element.parentNode.insertBefore(btn, element.nextSibling);
+    });
 }

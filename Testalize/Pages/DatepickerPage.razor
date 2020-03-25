@@ -1,25 +1,10 @@
 ﻿@page "/datepicker"
 
-<h3>Datepickers</h3>
+<h3>Datepicker</h3>
 
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
 
     <DataAnnotationsValidator />
-
-    <div class="row">
-        <div class="input-field col s12">
-            <input type="text" name="name" @bind-value="@name" />
-            <label for="name">Name</label>
-            @code {
-                string name = "Welison";
-            }
-        </div>
-    </div>
-    <div class="row mt-m-20">
-        <div class="col s12">
-            <code>@name</code>
-        </div>
-    </div>
 
     <Datepicker Lang="en">
         <TextMask Pattern="00-00-0000">

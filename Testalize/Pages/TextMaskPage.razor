@@ -1,6 +1,6 @@
 ﻿@page "/textmask"
 
-<h3>Datepickers</h3>
+<h3>TextMask</h3>
 
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
 
@@ -49,6 +49,20 @@
         </div>
     </TextMask>
 
+    <TextMask Type="Currency">
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" @bind-value="_exampleModel.Money2" id="money2" class="validate" data-thousands="." data-decimal="," data-prefix="R$ " />
+                <label for="money2" class="">Money 2</label>
+            </div>
+        </div>
+        <div class="row mt-m-20">
+            <div class="col s12">
+                <code>@_exampleModel.Money2</code>
+            </div>
+        </div>
+    </TextMask>
+
     <div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
@@ -71,6 +85,9 @@
 
         [Required]
         public string Money { get; set; }
+
+        [Required]
+        public string Money2 { get; set; }
 
     }
 

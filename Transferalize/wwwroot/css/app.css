@@ -10,6 +10,9 @@
 .datepicker-day-button:hover {
     background-color: rgba(43,161,150,0.25);
 }
+.datepicker-controls .select-month input {
+    width: 85px;
+}
 
 .flatpickr-current-month {
     display: flex;
