@@ -13,3 +13,12 @@
         @Body
     </div>
 </div>
+
+@inject IJSRuntime JSRuntime
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _ = await JSRuntime.InvokeAsync<string>("RunUpdateInputText");
+    }
+}

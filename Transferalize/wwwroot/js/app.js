@@ -3,6 +3,7 @@
     var datepicker = DatepickerContainer.querySelectorAll('input');
     var instance, timer;
 
+    _updateDateInputText(datepicker);
 
     /* **********************************************************
      * DATEPICKER
@@ -214,4 +215,58 @@ RunTextMask = function (TextMaskContainer, options) {
         });
 
     }
-} 
+}
+
+
+RunUpdateInputText = function () {
+    M.updateTextFields();
+}
+
+
+
+
+
+
+
+
+
+
+
+function _updateDateInputText(datepicker) {
+    [].forEach.call(datepicker, function (element) {
+
+        var label = element.parentElement.querySelector('label');
+        var placeholder = element.getAttribute('placeholder');
+        console.log(placeholder)
+        if (label && !element.value && !placeholder) {
+            label.classList.remove('active')
+        } else if (label && (element.value || placeholder)) {
+            label.classList.add('active')
+        }
+
+        element.addEventListener('focus', function (evt) {
+            var label = evt.currentTarget.parentElement.querySelector('label');
+            if (label) {
+                label.classList.add('active')
+            }
+        });
+
+        element.addEventListener('blur', function (evt) {
+            var label = evt.currentTarget.parentElement.querySelector('label');
+            var placeholder = element.getAttribute('placeholder');
+            if (label && !evt.currentTarget.value && !placeholder) {
+                label.classList.remove('active')
+            }
+        });
+
+        element.addEventListener('change', function (evt) {
+            var label = evt.currentTarget.parentElement.querySelector('label');
+            var placeholder = element.getAttribute('placeholder');
+            if (label && !evt.currentTarget.value && !placeholder) {
+                label.classList.remove('active')
+            } else if (label && evt.currentTarget.value) {
+                label.classList.add('active')
+            }
+        });
+    });
+}
