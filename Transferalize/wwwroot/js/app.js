@@ -10,7 +10,8 @@
     function getDatepickerOptions () {
         return {
             'format': (options.format) ? options.format : 'dd-mm-yyyy',
-            'i18n': (options.lang && options.lang === 'pt-BR') ? getDatepickerPTBR() : null
+            'i18n': (options.lang && options.lang === 'pt-BR') ? getDatepickerPTBR() : null,
+            'setDefaultDate': false
         }
     }
 
@@ -28,7 +29,9 @@
     }
 
     function initDatepickerOnLoad(_opts) {
-        M.Datepicker.init(datepicker, _opts);
+        [].forEach.call(datepicker, function (element) {
+            M.Datepicker.init(element, _opts);
+        });
     }
 
     function initDatepickerOnClick(_opts) {
@@ -44,16 +47,8 @@
                 M.Datepicker.init(elements, _opts);
                 instance = M.Datepicker.getInstance(element);
 
-                if (instance) {
 
-                    if (element.value) {
-                        try {
-                            var date = Date.parse(element.value);
-                            if (date) {
-                                instance.gotoDate(date);
-                            }
-                        } catch (e) { }
-                    }
+                if (instance) {
 
                     instance.options.onClose = function () {
                         destroyDatepicker();
@@ -84,12 +79,32 @@
     function initDatepicker() {
         if (datepicker.length) {
             var _opts = getDatepickerOptions();
-            _opts.onSelect = function () {
-                [].forEach.call(datepicker, function (element) {
-                    element.parentElement.querySelector('.datepicker-done').click();
+
+            // execute when datepicker modal opens
+            _opts.onOpen = function () {
+                var self = this;
+
+                // set default date
+                if (self.el.value) {
+                    setTimeout(function () {
+                        self.setDate(_getEnglishFormatDate(self.options.format, self.el.value));
+                    });
+                }
+
+                // trigger done btn to close on select date
+                setTimeout(function () {
+                    var btns = self.modal.el.querySelectorAll('.datepicker-day-button');
+                    [].forEach.call(btns, function (btn) {
+                        btn.addEventListener('click', function () {
+                            setTimeout(function () {
+                                self.doneBtn.click();
+                            })
+                        });
+                    });
                 });
             }
 
+            // start the date picker
             if (options.openOn === 'click') {
                 initDatepickerOnClick(_opts);
             } else {
@@ -222,3 +237,28 @@ RunUpdateInputText = function () {
     //M.updateTextFields();
 }
 
+
+
+
+
+
+function _getEnglishFormatDate(format, date) {
+    var arDate;
+    var retDate = date;
+    if (format === 'dd-mm-yyyy') {
+        arDate = date.split('-');
+        retDate = arDate[1] + '-' + arDate[0] + '-' + arDate[2];
+    }
+
+    if (format === 'dd/mm/yyyy') {
+        arDate = date.split('/');
+        retDate = arDate[1] + '-' + arDate[0] + '-' + arDate[2];
+    }
+
+    if (format === 'mm/dd/yyyy') {
+        arDate = date.split('/');
+        retDate = arDate[0] + '-' + arDate[1] + '-' + arDate[2];
+    }
+
+    return retDate;
+}
