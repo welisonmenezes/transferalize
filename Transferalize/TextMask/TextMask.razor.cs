@@ -21,6 +21,9 @@ namespace Transferalize
         [Parameter]
         public bool Reverse { get; set; } = false;
 
+        [Parameter]
+        public bool Clear { get; set; } = false;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -36,7 +39,8 @@ namespace Transferalize
             TMskOpts = new TextMaskOptions
             {
                 Pattern = Pattern,
-                Reverse = Reverse
+                Reverse = Reverse,
+                Clear = Clear
             };
         }
 

@@ -8,10 +8,16 @@
 
     <div class="row">
         <div class="input-field col s12">
-            <TextInput>
-                <input id="name" type="text" class="validate" value="Welison">
-            </TextInput>
+            <input type="text" name="name" @bind-value="@name" />
             <label for="name">Name</label>
+            @code {
+                string name = "Welison";
+            }
+        </div>
+    </div>
+    <div class="row mt-m-20">
+        <div class="col s12">
+            <code>@name</code>
         </div>
     </div>
 
@@ -19,7 +25,7 @@
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
-                    <InputText @bind-Value="_exampleModel.Birthdate" id="birthdate" class="validate" />
+                    <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" />
                     <label for="birthdate" class="">Datepicker Modal Default</label>
                 </div>
             </div>
@@ -35,7 +41,7 @@
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
-                    <InputText @bind-Value="_exampleModel.Birthdate2" id="birthdate2" class="validate" />
+                    <input type="text" @bind-value="_exampleModel.Birthdate2" id="birthdate2" class="validate" />
                     <label for="birthdate2" class="">Datepicker Modal Open On Click</label>
                 </div>
             </div>
@@ -51,7 +57,7 @@
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
-                    <InputText @bind-Value="_exampleModel.Birthdate3" id="birthdate3" class="validate" placeholder="Data" />
+                    <input type="text" @bind-value="_exampleModel.Birthdate3" id="birthdate3" class="validate" placeholder="Data" />
                     <label for="birthdate3" class="">Datepicker Inline Default</label>
                 </div>
             </div>
@@ -67,7 +73,7 @@
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
-                    <InputText @bind-Value="_exampleModel.Birthdate4" id="birthdate4" class="validate" />
+                    <input type="text" @bind-value="_exampleModel.Birthdate4" id="birthdate4" class="validate" />
                     <label for="birthdate4" class="">Datepicker Inline  Open On Click</label>
                 </div>
             </div>
@@ -87,7 +93,8 @@
 
 </EditForm>
 
-@using System.ComponentModel.DataAnnotations;
+@using System.ComponentModel.DataAnnotations
+@inject IJSRuntime JSRuntime
 
 @code {
     public class ExampleModel
@@ -111,6 +118,13 @@
     {
         _exampleModel.Birthdate = "06-01-1987";
         _exampleModel.Birthdate2 = "06-01-1987";
+        _exampleModel.Birthdate3 = "06-01-1987";
+        _exampleModel.Birthdate4 = "06-01-1987";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<string>("M.updateTextFields");
     }
 
     private void HandleValidSubmit()

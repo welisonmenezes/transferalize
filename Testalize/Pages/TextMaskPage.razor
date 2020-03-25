@@ -1,0 +1,93 @@
+﻿@page "/textmask"
+
+<h3>Datepickers</h3>
+
+<EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+
+
+    <TextMask Pattern="00-00-0000">
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" />
+                <label for="birthdate" class="">Date</label>
+            </div>
+        </div>
+        <div class="row mt-m-20">
+            <div class="col s12">
+                <code>@_exampleModel.Birthdate</code>
+            </div>
+        </div>
+    </TextMask>
+
+    <TextMask Pattern="(00) 0000-00009" Clear="true">
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" @bind-value="_exampleModel.Phone" id="phone" class="validate" />
+                <label for="phone" class="">Phone</label>
+            </div>
+        </div>
+        <div class="row mt-m-20">
+            <div class="col s12">
+                <code>@_exampleModel.Phone</code>
+            </div>
+        </div>
+    </TextMask>
+
+    <TextMask Pattern="#.##0,00" Reverse="true">
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" @bind-value="_exampleModel.Money" id="money" class="validate" />
+                <label for="money" class="">Money</label>
+            </div>
+        </div>
+        <div class="row mt-m-20">
+            <div class="col s12">
+                <code>@_exampleModel.Money</code>
+            </div>
+        </div>
+    </TextMask>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+    <ValidationSummary />
+
+</EditForm>
+
+@using System.ComponentModel.DataAnnotations
+@inject IJSRuntime JSRuntime
+
+@code {
+    public class ExampleModel
+    {
+        [Required]
+        public string Birthdate { get; set; }
+
+        [Required]
+        public string Phone { get; set; }
+
+        [Required]
+        public string Money { get; set; }
+
+    }
+
+    ExampleModel _exampleModel = new ExampleModel();
+
+    protected override void OnInitialized()
+    {
+        _exampleModel.Birthdate = "06-01-1987";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<string>("M.updateTextFields");
+    }
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}

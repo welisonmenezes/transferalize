@@ -3,8 +3,6 @@
     var datepicker = DatepickerContainer.querySelectorAll('input');
     var instance, timer;
 
-    _updateDateInputText(datepicker);
-
     /* **********************************************************
      * DATEPICKER
      * **********************************************************/
@@ -70,8 +68,6 @@
                     instance.open();
                 }
 
-               
-                
             });
         }
     }
@@ -99,6 +95,7 @@
             } else {
                 initDatepickerOnLoad(_opts);
             }
+
         }
     }
 
@@ -203,69 +200,25 @@
     } else {
         initDatepicker();
     }
-    
+
 }
 
 
 RunTextMask = function (TextMaskContainer, options) {
-    var field = TextMaskContainer.querySelector('input')
+    var field = TextMaskContainer.querySelector('input');
     if (field) {
         $(field).mask(options.pattern, {
-            reverse: options.reverse
+            reverse: options.reverse,
+            clearIfNotMatch: options.clear
         });
-
+        field.addEventListener('blur', function () {
+            field.dispatchEvent(new Event('change', { 'bubbles': true }));
+        });
     }
 }
 
 
 RunUpdateInputText = function () {
-    M.updateTextFields();
+    //M.updateTextFields();
 }
 
-
-
-
-
-
-
-
-
-
-
-function _updateDateInputText(datepicker) {
-    [].forEach.call(datepicker, function (element) {
-
-        var label = element.parentElement.querySelector('label');
-        var placeholder = element.getAttribute('placeholder');
-        if (label && !element.value && !placeholder) {
-            label.classList.remove('active')
-        } else if (label && (element.value || placeholder)) {
-            label.classList.add('active')
-        }
-
-        element.addEventListener('focus', function (evt) {
-            var label = evt.currentTarget.parentElement.querySelector('label');
-            if (label) {
-                label.classList.add('active')
-            }
-        });
-
-        element.addEventListener('blur', function (evt) {
-            var label = evt.currentTarget.parentElement.querySelector('label');
-            var placeholder = element.getAttribute('placeholder');
-            if (label && !evt.currentTarget.value && !placeholder) {
-                label.classList.remove('active')
-            }
-        });
-
-        element.addEventListener('change', function (evt) {
-            var label = evt.currentTarget.parentElement.querySelector('label');
-            var placeholder = element.getAttribute('placeholder');
-            if (label && !evt.currentTarget.value && !placeholder) {
-                label.classList.remove('active')
-            } else if (label && evt.currentTarget.value) {
-                label.classList.add('active')
-            }
-        });
-    });
-}
