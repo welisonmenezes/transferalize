@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace Transferalize
 {
-    public class DatepickerBase : ComponentBase
+    public class TSDatepickerBase : ComponentBase
     {
-        public ElementReference DatepickerContainer;
+        public ElementReference TSDatepickerContainer;
 
-        public DatepickerOptions DpkrOpts { get; set; }
+        public TSDatepickerOptions DpkrOpts { get; set; }
 
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
@@ -32,7 +32,7 @@ namespace Transferalize
             if (firstRender)
             {
                 SetOptionsByParameters();
-                await JSInterop.InvokeAsync<string>("RunDatepicker", DatepickerContainer, DpkrOpts);
+                await JSInterop.InvokeAsync<string>("RunTSDatepicker", TSDatepickerContainer, DpkrOpts);
                 //await JSInterop.InvokeAsync<string>("M.updateTextFields");
                 StateHasChanged();
             }
@@ -40,7 +40,7 @@ namespace Transferalize
 
         private void SetOptionsByParameters()
         {
-            DpkrOpts = new DatepickerOptions
+            DpkrOpts = new TSDatepickerOptions
             {
                 Lang = Lang,
                 Type = Type,

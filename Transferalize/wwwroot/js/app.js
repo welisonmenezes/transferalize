@@ -1,6 +1,6 @@
-﻿RunDatepicker = function (DatepickerContainer, options) {
+﻿RunTSDatepicker = function (TSDatepickerContainer, options) {
 
-    var datepicker = DatepickerContainer.querySelectorAll('input');
+    var datepicker = TSDatepickerContainer.querySelectorAll('input');
     var instance, timer;
 
     /* **********************************************************
@@ -17,7 +17,7 @@
 
         _createButtonElement(datepicker);
 
-        var btn = DatepickerContainer.querySelector('.datepicker-open');
+        var btn = TSDatepickerContainer.querySelector('.datepicker-open');
         if (btn) {
             var elements = btn.parentElement.querySelectorAll('input');
             btn.addEventListener('click', function (evt) {
@@ -130,7 +130,7 @@
 
         _createButtonElement(datepicker);
 
-        var btn = DatepickerContainer.querySelector('.datepicker-open');
+        var btn = TSDatepickerContainer.querySelector('.datepicker-open');
         if (btn) {
             var element = btn.parentElement.querySelector('input');
             btn.addEventListener('click', function (evt) {

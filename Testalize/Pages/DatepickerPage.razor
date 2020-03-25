@@ -1,17 +1,17 @@
 ﻿@page "/datepicker"
 
-<h3>Datepicker</h3>
+<h3>TSDatepicker</h3>
 
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
-    <Datepicker Lang="en">
+    <TSDatepicker Lang="en">
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" />
-                    <label for="birthdate">Datepicker Modal Default</label>
+                    <label for="birthdate">TSDatepicker Modal Default</label>
                 </div>
             </div>
             <div class="row mt-m-20">
@@ -20,14 +20,14 @@
                 </div>
             </div>
         </TextMask>
-    </Datepicker>
+    </TSDatepicker>
 
-    <Datepicker Lang="pt-BR" OpenOn="click">
+    <TSDatepicker Lang="pt-BR" OpenOn="click">
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" @bind-value="_exampleModel.Birthdate2" id="birthdate2" class="validate" />
-                    <label for="birthdate2">Datepicker Modal Open On Click</label>
+                    <label for="birthdate2">TSDatepicker Modal Open On Click</label>
                 </div>
             </div>
             <div class="row mt-m-20">
@@ -36,14 +36,14 @@
                 </div>
             </div>
         </TextMask>
-    </Datepicker>
+    </TSDatepicker>
 
-    <Datepicker Type="flatpickr">
+    <TSDatepicker Type="flatpickr">
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" @bind-value="_exampleModel.Birthdate3" id="birthdate3" class="validate" placeholder="Data" />
-                    <label for="birthdate3">Datepicker Inline Default</label>
+                    <label for="birthdate3">TSDatepicker Inline Default</label>
                 </div>
             </div>
             <div class="row mt-m-20">
@@ -52,14 +52,14 @@
                 </div>
             </div>
         </TextMask>
-    </Datepicker>
+    </TSDatepicker>
 
-    <Datepicker Type="flatpickr" OpenOn="click">
+    <TSDatepicker Type="flatpickr" OpenOn="click">
         <TextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
                     <input type="text" @bind-value="_exampleModel.Birthdate4" id="birthdate4" class="validate" />
-                    <label for="birthdate4">Datepicker Inline  Open On Click</label>
+                    <label for="birthdate4">TSDatepicker Inline  Open On Click</label>
                 </div>
             </div>
             <div class="row mt-m-20">
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </TextMask>
-    </Datepicker>
+    </TSDatepicker>
 
     <div>
         <button type="submit" class="btn btn-primary">Submit</button>

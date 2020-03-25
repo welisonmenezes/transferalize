@@ -1,6 +1,6 @@
 ﻿namespace Transferalize
 {
-    public class DatepickerOptions
+    public class TSDatepickerOptions
     {
         public string Type { get; set; }
         public string Lang { get; set; }
