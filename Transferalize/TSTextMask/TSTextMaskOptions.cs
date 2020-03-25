@@ -1,6 +1,6 @@
 ﻿namespace Transferalize
 {
-    public class TextMaskOptions
+    public class TSTextMaskOptions
     {
         public string Pattern { get; set; }
 

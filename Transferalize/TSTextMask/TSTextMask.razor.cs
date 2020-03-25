@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace Transferalize
 {
-    public class TextMaskBase : ComponentBase
+    public class TSTextMaskBase : ComponentBase
     {
-        public ElementReference TextMaskContainer;
+        public ElementReference TSTextMaskContainer;
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
-        public TextMaskOptions TMskOpts { get; set; }
+        public TSTextMaskOptions TMskOpts { get; set; }
 
         [Parameter]
         public string Pattern { get; set; }
@@ -32,14 +32,14 @@ namespace Transferalize
             if (firstRender)
             {
                 SetOptionsByParameters();
-                _ = await JSInterop.InvokeAsync<string>("RunTextMask", TextMaskContainer, TMskOpts);
+                _ = await JSInterop.InvokeAsync<string>("RunTSTextMask", TSTextMaskContainer, TMskOpts);
                 StateHasChanged();
             }
         }
 
         private void SetOptionsByParameters()
         {
-            TMskOpts = new TextMaskOptions
+            TMskOpts = new TSTextMaskOptions
             {
                 Pattern = Pattern,
                 Reverse = Reverse,

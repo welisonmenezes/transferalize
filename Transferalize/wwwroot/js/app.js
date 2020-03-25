@@ -180,8 +180,8 @@
 }
 
 
-RunTextMask = function (TextMaskContainer, options) {
-    var field = TextMaskContainer.querySelector('input');
+RunTSTextMask = function (TSTextMaskContainer, options) {
+    var field = TSTextMaskContainer.querySelector('input');
     if (field) {
 
         if (options.type === 'Currency') {

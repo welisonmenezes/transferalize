@@ -1,13 +1,13 @@
-﻿@page "/textmask"
+﻿@page "/textMask"
 
-<h3>TextMask</h3>
+<h3>TSTextMask</h3>
 
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
 
     <DataAnnotationsValidator />
 
 
-    <TextMask Pattern="00-00-0000">
+    <TSTextMask Pattern="00-00-0000">
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" />
@@ -19,9 +19,9 @@
                 <code>@_exampleModel.Birthdate</code>
             </div>
         </div>
-    </TextMask>
+    </TSTextMask>
 
-    <TextMask Pattern="(00) 0000-00009" Clear="true">
+    <TSTextMask Pattern="(00) 0000-00009" Clear="true">
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" @bind-value="_exampleModel.Phone" id="phone" class="validate" />
@@ -33,9 +33,9 @@
                 <code>@_exampleModel.Phone</code>
             </div>
         </div>
-    </TextMask>
+    </TSTextMask>
 
-    <TextMask Pattern="#.##0,00" Reverse="true">
+    <TSTextMask Pattern="#.##0,00" Reverse="true">
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" @bind-value="_exampleModel.Money" id="money" class="validate" />
@@ -47,9 +47,9 @@
                 <code>@_exampleModel.Money</code>
             </div>
         </div>
-    </TextMask>
+    </TSTextMask>
 
-    <TextMask Type="Currency">
+    <TSTextMask Type="Currency">
         <div class="row">
             <div class="input-field col s12">
                 <input type="text" @bind-value="_exampleModel.Money2" id="money2" class="validate" data-thousands="." data-decimal="," data-prefix="R$ " />
@@ -61,7 +61,7 @@
                 <code>@_exampleModel.Money2</code>
             </div>
         </div>
-    </TextMask>
+    </TSTextMask>
 
     <div>
         <button type="submit" class="btn btn-primary">Submit</button>
