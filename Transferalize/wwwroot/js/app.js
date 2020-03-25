@@ -71,25 +71,6 @@
                     });
 
                 }
-
-                // trigger done btn to close on select date
-                setTimeout(function () {
-                    var btns = self.modal.el.querySelectorAll('.datepicker-day-button');
-                    [].forEach.call(btns, function (btn) {
-                        btn.addEventListener('click', function () {
-
-                            clearTimeout(timer);
-                            timer = setTimeout(function () {
-                                self.doneBtn.click();
-                            });
-
-                        });
-                    });
-
-                    self.modal.el.addEventListener('click', function (evt) {
-                        evt.stopPropagation();
-                    });
-                });
             }
 
             // start the date picker
@@ -98,6 +79,19 @@
             } else {
                 initDatepickerOnLoad(_opts);
             }
+
+            // trigger done btn to close on select date
+            document.addEventListener('click', function (evt) {
+                if (evt.target.classList.contains('datepicker-day-button')) {
+                    var modal = document.querySelector('.datepicker-modal.open');
+                    if (modal) {
+                        var btn = modal.querySelector('.datepicker-done');
+                        if (btn) {
+                            btn.click();
+                        }
+                    }
+                }
+            });
 
         }
     }
@@ -200,8 +194,12 @@ RunTSTextMask = function (TSTextMaskContainer, options) {
 }
 
 
-RunUpdateInputText = function () {
-    //M.updateTextFields();
+RunTSTabs = function (TSTabsContainer) {
+    console.log('tabs')
+    var el = TSTabsContainer.querySelector('.tabs');
+    if (el) {
+        M.Tabs.init(el, {});
+    }
 }
 
 

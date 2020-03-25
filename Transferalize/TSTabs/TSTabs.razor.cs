@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace Transferalize
 {
-    public class TextInputBase : ComponentBase
+    public class TSTabsBase : ComponentBase
     {
+        public ElementReference TSTabsContainer;
+
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
         [Parameter]
@@ -16,7 +18,7 @@ namespace Transferalize
         {
             if (firstRender)
             {
-                _ = await JSInterop.InvokeAsync<object>("RunUpdateInputText");
+                _ = await JSInterop.InvokeAsync<object>("RunTSTabs", TSTabsContainer);
                 StateHasChanged();
             }
         }
