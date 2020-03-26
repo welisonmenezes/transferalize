@@ -138,7 +138,8 @@ app {
 
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
-        display: none;
+        /*display: none;*/
+        padding: 0 15px;
     }
 
     .main .top-row.auth {
@@ -199,4 +200,33 @@ code {
 }
 .carousel.carousel-slider {
     height: 400px;
+}
+
+.sidebar {
+    width: auto !important;
+    height: 100vh;
+}
+.main {
+    margin-left: 300px;
+}
+.main .top-row {
+    justify-content: left !important;
+}
+
+@media (max-width: 991px) {
+    .main {
+        margin-left: 0;
+    }
+}
+
+.sidebar .nav-item a {
+    border-radius: 0;
+}
+
+.sidebar .navbar-brand {
+    display: block;
+    padding: 11px 30px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
 }

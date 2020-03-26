@@ -228,13 +228,17 @@ RunTSCarousel = function (TSCarouselContainer, options) {
 
 
 RunTSTooltip = function (TSTooltipContainer, options) {
-    console.log(TSTooltipContainer, options);
     var tooltips = TSTooltipContainer.querySelectorAll('*');
-    
     if (tooltips) {
         TSTooltipContainer.style.display = options.display;
         M.Tooltip.init(tooltips, options);
     }
+}
+
+
+
+RunTSSidenav = function (TSSidenavContainer, options) {
+    M.Sidenav.init(TSSidenavContainer, {});
 }
 
 
