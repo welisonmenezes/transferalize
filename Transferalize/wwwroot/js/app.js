@@ -37,7 +37,6 @@
 
                     document.removeEventListener('click', destroyDatepicker);
                     document.addEventListener('click', destroyDatepicker);
-
                     instance.open();
                 }
 
@@ -45,12 +44,14 @@
         }
     }
 
-    function destroyDatepicker() {
-        if (instance) {
-            try {
-                instance.destroy();
-                instance = null;
-            } catch (e) { }
+    function destroyDatepicker(evt) {
+        if (evt && (evt.target.classList.contains('modal-overlay') || evt.target.classList.contains('datepicker-day-button')) ) {
+            if (instance) {
+                try {
+                    instance.destroy();
+                    instance = null;
+                } catch (e) { }
+            }
         }
     }
 
@@ -195,11 +196,39 @@ RunTSTextMask = function (TSTextMaskContainer, options) {
 
 
 RunTSTabs = function (TSTabsContainer) {
-    console.log('tabs')
     var el = TSTabsContainer.querySelector('.tabs');
     if (el) {
         M.Tabs.init(el, {});
     }
+}
+
+
+RunTSCarousel = function (TSCarouselContainer, options) {
+
+    var elems = TSCarouselContainer.querySelectorAll('.carousel'),
+        imgs = TSCarouselContainer.querySelectorAll('img'),
+        len = imgs.length,
+        counter = 0;
+
+    if (len) {
+        [].forEach.call(imgs, function (img) {
+            if (img.complete)
+                incrementCounter();
+            else
+                img.addEventListener('load', incrementCounter, false);
+        });
+
+        function incrementCounter() {
+            counter++;
+            if (counter === len) {
+                M.Carousel.init(elems, options);
+            }
+        }
+    } else {
+        M.Carousel.init(elems, options);
+    }
+
+    
 }
 
 

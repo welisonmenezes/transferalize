@@ -192,3 +192,11 @@ code {
 .row.mt-m-20 {
     margin-top: -20px;
 }
+
+.carousel {
+    max-width: 800px;
+    height: 200px;
+}
+.carousel.carousel-slider {
+    height: 400px;
+}

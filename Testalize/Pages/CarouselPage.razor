@@ -1,0 +1,79 @@
+﻿@page "/carousel"
+
+<h3>TSCarousel</h3>
+
+<TSCarousel>
+    <div class="carousel">
+        <div class="carousel-item"><img src="img/img-1.jpg"></div>
+        <div class="carousel-item"><img src="img/img-2.jpg"></div>
+        <div class="carousel-item"><img src="img/img-3.jpg"></div>
+        <div class="carousel-item"><img src="img/img-4.jpg"></div>
+        <div class="carousel-item"><img src="img/img-5.jpg"></div>
+    </div>
+</TSCarousel>
+
+<br />
+<hr />
+<br />
+
+<TSCarousel FullWidth="true" NumVisible="1" Indicators="true">
+    <div class="carousel carousel-slider">
+        <div class="carousel-item"><img src="img/img-gr-1.jpg"></div>
+        <div class="carousel-item"><img src="img/img-gr-2.jpg"></div>
+        <div class="carousel-item"><img src="img/img-gr-3.jpg"></div>
+        <div class="carousel-item"><img src="img/img-gr-4.jpg"></div>
+        <div class="carousel-item"><img src="img/img-gr-5.jpg"></div>
+    </div>
+</TSCarousel>
+
+<br />
+<hr />
+<br />
+
+<TSCarousel FullWidth="true" NumVisible="1" Indicators="true">
+    <div class="carousel carousel-slider center">
+        <div class="carousel-fixed-item center">
+            <a class="btn waves-effect white grey-text darken-text-2">button</a>
+        </div>
+        <div class="carousel-item red white-text">
+            <h2>First Panel</h2>
+            <p class="white-text">This is your first panel</p>
+        </div>
+        <div class="carousel-item amber white-text">
+            <h2>Second Panel</h2>
+            <p class="white-text">This is your second panel</p>
+        </div>
+        <div class="carousel-item green">
+            <div class="white-text">
+                <h2>Third Panel</h2>
+                <p class="white-text">This is your third panel</p>
+            </div>
+            <TSDatepicker Lang="en" OpenOn="click">
+                <TSTextMask Pattern="00-00-0000">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" @bind-value="Birthdate" id="birthdate" class="validate" />
+                            <label for="birthdate">TSDatepicker Modal Default</label>
+                        </div>
+                    </div>
+                    <div class="row mt-m-20">
+                        <div class="col s12">
+                            <code>@Birthdate</code>
+                        </div>
+                    </div>
+                </TSTextMask>
+            </TSDatepicker>
+        </div>
+        <div class="carousel-item blue white-text">
+            <h2>Fourth Panel</h2>
+            <p class="white-text">This is your fourth panel</p>
+        </div>
+    </div>
+</TSCarousel>
+
+<br />
+<br />
+
+@code {
+    string Birthdate;
+}
