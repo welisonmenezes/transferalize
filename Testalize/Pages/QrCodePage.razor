@@ -1,0 +1,32 @@
+﻿@page "/qrcode"
+
+<h3>TSQrCode</h3>
+
+<h6>Automático</h6>
+<TSQrCode Width="200" Height="200" Text="Menezes" />
+<hr />
+<h6>Gerado depois</h6>
+<TSQrCode @ref="MyQrCode" />
+<br />
+<button type="button" class="btn" @onclick="CreateCode">Gerar code</button>
+
+@inject IJSRuntime JSRuntime
+
+@code {
+
+    TSQrCode MyQrCode;
+
+    private async Task CreateCode(MouseEventArgs e)
+    {
+        MyQrCode.UpdateCode(RandomString(10));
+    }
+
+    private Random random = new Random();
+
+    public string RandomString(int length)
+    {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+          .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+}

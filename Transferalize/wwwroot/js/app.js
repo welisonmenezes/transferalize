@@ -242,6 +242,21 @@ RunTSSidenav = function (TSSidenavContainer, options) {
 }
 
 
+RunTSQrCode = function (TSQrCodeContainer, options) {
+    TSQrCodeContainer.innerHTML = "";
+    if (options.text !== "") {
+        new QRCode(TSQrCodeContainer, {
+            text: options.text,
+            width: options.width,
+            height: options.height,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    }
+}
+
+
 
 
 
