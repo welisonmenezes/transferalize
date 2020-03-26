@@ -19,7 +19,7 @@ namespace Transferalize
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
         [Parameter]
-        public int ExitDelay { get; set; } = 200;
+        public string Edge { get; set; } = "left";
 
         [Parameter]
         public string Id { get; set; } = "";
@@ -52,7 +52,7 @@ namespace Transferalize
         {
             SidenavOpts = new TSSidenavOptions
             {
-                ExitDelay = ExitDelay
+                Edge = Edge
             };
         }
 

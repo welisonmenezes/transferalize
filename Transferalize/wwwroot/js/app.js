@@ -238,7 +238,7 @@ RunTSTooltip = function (TSTooltipContainer, options) {
 
 
 RunTSSidenav = function (TSSidenavContainer, options) {
-    M.Sidenav.init(TSSidenavContainer, {});
+    M.Sidenav.init(TSSidenavContainer, options);
 }
 
 

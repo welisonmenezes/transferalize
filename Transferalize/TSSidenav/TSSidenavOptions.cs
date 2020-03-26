@@ -2,6 +2,6 @@
 {
     public class TSSidenavOptions
     {
-        public int ExitDelay { get; set; }
+        public string Edge { get; set; }
     }
 }

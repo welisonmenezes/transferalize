@@ -10,7 +10,7 @@
         <TSTextMask Pattern="00-00-0000">
             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" />
+                    <input type="text" @bind-value="_exampleModel.Birthdate" id="birthdate" class="validate" placeholder="Birthdate" />
                     <label for="birthdate">TSDatepicker Modal Default</label>
                 </div>
             </div>
@@ -101,7 +101,7 @@
 
     protected override void OnInitialized()
     {
-        _exampleModel.Birthdate = "06-01-1987";
+        //_exampleModel.Birthdate = "06-01-1987";
         _exampleModel.Birthdate2 = "06-01-1987";
         _exampleModel.Birthdate3 = "06-01-1987";
         _exampleModel.Birthdate4 = "06-01-1987";

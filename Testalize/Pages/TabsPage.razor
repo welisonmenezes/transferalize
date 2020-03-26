@@ -51,7 +51,14 @@
     </div>
 </TSTabs>
 
+@inject IJSRuntime JSRuntime
+
 @code {
     string Birthdate;
     string Birthdate2;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<string>("M.updateTextFields");
+    }
 }
