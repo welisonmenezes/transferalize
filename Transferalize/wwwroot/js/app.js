@@ -103,8 +103,6 @@
      * FLATPICKR
      * **********************************************************/
 
-    
-
     function setDateToFlatpickr(element) {
         element.addEventListener('change', function (evt) {
             var value = evt.currentTarget.value;
@@ -163,8 +161,6 @@
             }
         }
     }
-
-    
 
     if (options.type === 'flatpickr') {
         initFlatpickr();
@@ -227,10 +223,19 @@ RunTSCarousel = function (TSCarouselContainer, options) {
     } else {
         M.Carousel.init(elems, options);
     }
-
-    
 }
 
+
+
+RunTSTooltip = function (TSTooltipContainer, options) {
+    console.log(TSTooltipContainer, options);
+    var tooltips = TSTooltipContainer.querySelectorAll('*');
+    
+    if (tooltips) {
+        TSTooltipContainer.style.display = options.display;
+        M.Tooltip.init(tooltips, options);
+    }
+}
 
 
 
