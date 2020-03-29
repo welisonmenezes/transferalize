@@ -258,6 +258,43 @@ RunTSQrCode = function (TSQrCodeContainer, options) {
 
 
 
+RunTSModal = function (TSModalContainer, options) {
+
+    var id = options.id;
+    var modal = TSModalContainer.querySelector('#' + id);
+    if (modal) {
+        var instance = M.Modal.init(modal, options);
+
+        var btnOpen = document.querySelectorAll('.modal-open[data-target="' + id + '"]');
+        if (btnOpen) {
+            [].forEach.call(btnOpen, function (btn) {
+                btn.addEventListener('click', function (evt) {
+                    evt.preventDefault();
+                    instance.open();
+                });
+            });
+        }
+
+        var btnClose = modal.querySelectorAll('.modal-close');
+        if (btnClose) {
+            [].forEach.call(btnClose, function (btn) {
+                btn.addEventListener('click', function (evt) {
+                    evt.preventDefault();
+                    instance.close();
+                });
+            });
+        }
+
+        if (options.openOnLoad) {
+            instance.open();
+        }
+    }
+}
+
+
+
+
+
 
 
 

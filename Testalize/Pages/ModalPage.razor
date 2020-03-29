@@ -1,0 +1,48 @@
+﻿@page "/modal"
+
+<h3>TSModal</h3>
+
+<button type="button" class="btn modal-open" data-target="modal1">Modal 1</button>
+<button type="button" class="btn modal-open" data-target="modal1">Modal 1</button>
+
+<TSModal Id="modal1" OpenOnLoad="true">
+    <div class="modal-content">
+        <h4>Modal 1 Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</TSModal>
+
+<br />
+<hr />
+<br />
+
+<button type="button" class="btn modal-open" data-target="modal2">Modal 2</button>
+
+<TSModal Id="modal2" Type="modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Modal 2 Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</TSModal>
+
+<br />
+<hr />
+<br />
+
+<button type="button" class="btn modal-open" data-target="modal3">Modal 3</button>
+
+<TSModal Id="modal3" Type="bottom-sheet" PreventScrolling="false">
+    <div class="modal-content">
+        <h4>Modal 3 Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</TSModal>
