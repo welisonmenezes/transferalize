@@ -22,3 +22,10 @@
 .flatpickr-monthDropdown-months {
     display: block;
 }
+
+.TSChart {
+    width: 100%;
+}
+.TSChart canvas {
+    max-width: 100%;
+}
