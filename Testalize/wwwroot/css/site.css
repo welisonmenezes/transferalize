@@ -204,7 +204,8 @@ code {
 
 .sidebar {
     width: auto !important;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
 }
 .main {
     margin-left: 300px;

@@ -16,23 +16,35 @@ namespace Transferalize
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
         [Parameter]
-        public string Display { get; set; } = "block";
+        public string ConfigMethodName { get; set; } = null;
+
+        [Parameter]
+        public string Type { get; set; } = "line";
+
+        [Parameter]
+        public int Height { get; set; } = 300;
+
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                SetOptionsByParameters();
-                _ = await JSInterop.InvokeAsync<object>("RunTSChart", TSChartContainer, ChartOpts);
+                object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
+
+                SetOptionsByParameters(config);
+                await JSInterop.InvokeAsync<object>("RunTSChart", TSChartContainer, ChartOpts);
                 StateHasChanged();
             }
         }
 
-        private void SetOptionsByParameters()
+        private void SetOptionsByParameters(object config)
         {
             ChartOpts = new TSChartOptions
             {
-                Display = Display
+                ConfigMethodName = ConfigMethodName,
+                Configurations = config,
+                Type = Type,
+                Height = Height
             };
         }
 

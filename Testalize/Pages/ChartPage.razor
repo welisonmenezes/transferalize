@@ -2,4 +2,30 @@
 
 <h3>TSChart</h3>
 
-<TSChart />
+<TSChart ConfigMethodName="GetChatConfig" Type="bar"  />
+@test
+
+@inject IJSRuntime JSRuntime
+@using System.Text.Json
+@using System.Text.Json.Serialization
+
+@code {
+
+    public TSChart Ref;
+
+    public object config = null;
+    public string test = "primeiro";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) { 
+            //config = await JSRuntime.InvokeAsync<object>("GetChatConfig");
+            //await JSRuntime.InvokeAsync<object>("RunTSChart", Ref, config);
+            //StateHasChanged();
+        }
+
+        //object jsObj = JsonSerializer.Deserialize<object>(_);
+        //await JSRuntime.InvokeAsync<string>("console.log", _);
+        //object config = config;
+    }
+}
