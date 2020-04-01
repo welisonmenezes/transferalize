@@ -2,9 +2,15 @@
 
 <h3>TSChart</h3>
 
-<TSChart ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" @ref="Ref" />
+<TSChart Id="my-chart-1" ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" @ref="Ref" />
 <div>
-    <button type="button" @onclick="HandleButtonClick" class="btn">Atualizar Gráfico</button>
+    <button type="button" @onclick="(() => HandleButtonClick(Ref))" class="btn">Atualizar Gráfico</button>
+</div>
+
+<br />
+<TSChart Id="my-chart-2" ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" @ref="Ref2" />
+<div>
+    <button type="button" @onclick="(() => HandleButtonClick(Ref2))" class="btn">Atualizar Gráfico</button>
 </div>
 
 @using System.Collections.Generic
@@ -12,6 +18,7 @@
 @code {
 
     public TSChart Ref;
+    public TSChart Ref2;
 
     protected override void OnInitialized()
     {
@@ -22,52 +29,54 @@
     List<ChartModel> ChartDataTwo = new List<ChartModel>();
     List<object> ChartDatas = new List<object>();
 
-    private void FillChartData() {
+    private void FillChartData()
+    {
         // chart one
-        ChartDataOne.Add( new ChartModel{X = 1, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 2, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 3, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 4, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 5, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 6, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 7, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 8, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 9, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 10, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 11, Y = RandomNumber(0, 100)} );
-        ChartDataOne.Add( new ChartModel{X = 12, Y = RandomNumber(0, 100)} );
+        ChartDataOne.Add(new ChartModel { X = 1, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 2, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 3, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 4, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 5, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 6, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 7, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 8, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 9, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 10, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 11, Y = RandomNumber(0, 100) });
+        ChartDataOne.Add(new ChartModel { X = 12, Y = RandomNumber(0, 100) });
 
         // chart two
-        ChartDataTwo.Add( new ChartModel{X = 1, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 2, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 3, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 4, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 5, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 6, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 7, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 8, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 9, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 10, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 11, Y = RandomNumber(0, 100)} );
-        ChartDataTwo.Add( new ChartModel{X = 12, Y = RandomNumber(0, 100)} );
+        ChartDataTwo.Add(new ChartModel { X = 1, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 2, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 3, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 4, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 5, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 6, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 7, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 8, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 9, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 10, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 11, Y = RandomNumber(0, 100) });
+        ChartDataTwo.Add(new ChartModel { X = 12, Y = RandomNumber(0, 100) });
 
         // chart datas
         ChartDatas.Add(ChartDataOne);
         ChartDatas.Add(ChartDataTwo);
     }
 
-    private void HandleButtonClick() {
+    private void HandleButtonClick(TSChart ElRef)
+    {
         ChartDataOne.Clear();
         ChartDataTwo.Clear();
         ChartDatas.Clear();
         FillChartData();
-        Ref.UpdateChart();
+        ElRef.UpdateChart();
     }
 
-    private int RandomNumber(int min, int max)  
-    {  
-        Random random = new Random();  
-        return random.Next(min, max);  
+    private int RandomNumber(int min, int max)
+    {
+        Random random = new Random();
+        return random.Next(min, max);
     }
 
 }

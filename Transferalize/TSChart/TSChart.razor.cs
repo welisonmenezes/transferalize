@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Transferalize
     {
         public ElementReference TSChartContainer;
 
-        public bool HasChange { get; set; } = true;
+        //public bool HasChange { get; set; } = true;
 
         public TSChartOptions ChartOpts { get; set; }
 
@@ -19,6 +20,9 @@ namespace Transferalize
 
         [Parameter]
         public string ConfigMethodName { get; set; } = null;
+
+        [Parameter]
+        public string Id { get; set; } = Guid.NewGuid().ToString("n").Substring(0, 8);
 
         [Parameter]
         public string Type { get; set; } = "line";
@@ -31,7 +35,7 @@ namespace Transferalize
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender || HasChange)
+            if (firstRender)
             {
                 
                 object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
@@ -39,8 +43,10 @@ namespace Transferalize
                 SetOptionsByParameters(config);
                 await JSInterop.InvokeAsync<object>("RunTSChart", TSChartContainer, ChartOpts);
 
-                StateHasChanged();
-                HasChange = false;
+                //HasChange = false;
+
+                //await JSInterop.InvokeAsync<object>("console.log", "test");
+                //StateHasChanged();
             }
         }
 
@@ -52,14 +58,18 @@ namespace Transferalize
                 Configurations = config,
                 Type = Type,
                 Height = Height,
-                Data = Data
+                Data = Data,
+                Id = Id
             };
         }
 
-        public void UpdateChart()
+        public async Task UpdateChart()
         {
-            HasChange = true;
-            StateHasChanged();
+            //HasChange = true;
+            //StateHasChanged();
+            object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
+            SetOptionsByParameters(config);
+            await JSInterop.InvokeAsync<object>("RunTSUpdateChart", ChartOpts);
         }
  
     }

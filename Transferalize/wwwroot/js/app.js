@@ -291,9 +291,10 @@ RunTSModal = function (TSModalContainer, options) {
     }
 }
 
-
+window.TSCharts = window.TSCharts || [];
 RunTSChart = function (TSChartContainer, options) {
     var chart = TSChartContainer.querySelector('canvas');
+  
     if (chart) {
         var ctx = chart.getContext('2d');
         var config = options.configurations;
@@ -309,7 +310,35 @@ RunTSChart = function (TSChartContainer, options) {
             }
         });
 
-        new Chart(ctx, config);
+        //console.log(config)
+
+        var myChart = new Chart(ctx, config);
+        myChart.uniqueId = options.id;
+
+        window.TSCharts.forEach(function (item, index) {
+            if (item.uniqueId === myChart.uniqueId) {
+                window.TSCharts.splice(index, 1);
+            }
+        });
+
+        window.TSCharts.push(myChart);
+
+        console.log(window.TSCharts);
+    }
+}
+
+RunTSUpdateChart = function (options) {
+    if (window.TSCharts) {
+        window.TSCharts.forEach(function (item) {
+            if (item.uniqueId === options.id) {
+                item.data.datasets.forEach(function (item2, index2) {
+                    if (options.data[index2]) {
+                        item2.data = options.data[index2];
+                    }
+                });
+                item.update();
+            }
+        });
     }
 }
 
