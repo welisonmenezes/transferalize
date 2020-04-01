@@ -310,8 +310,6 @@ RunTSChart = function (TSChartContainer, options) {
             }
         });
 
-        //console.log(config)
-
         var myChart = new Chart(ctx, config);
         myChart.uniqueId = options.id;
 
@@ -322,11 +320,8 @@ RunTSChart = function (TSChartContainer, options) {
         });
 
         window.TSCharts.push(myChart);
-
-        console.log(window.TSCharts);
     }
 }
-
 RunTSUpdateChart = function (options) {
     if (window.TSCharts) {
         window.TSCharts.forEach(function (item) {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
@@ -11,8 +10,6 @@ namespace Transferalize
     public class TSChartBase : ComponentBase
     {
         public ElementReference TSChartContainer;
-
-        //public bool HasChange { get; set; } = true;
 
         public TSChartOptions ChartOpts { get; set; }
 
@@ -37,16 +34,9 @@ namespace Transferalize
         {
             if (firstRender)
             {
-                
                 object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
-
                 SetOptionsByParameters(config);
                 await JSInterop.InvokeAsync<object>("RunTSChart", TSChartContainer, ChartOpts);
-
-                //HasChange = false;
-
-                //await JSInterop.InvokeAsync<object>("console.log", "test");
-                //StateHasChanged();
             }
         }
 
@@ -65,8 +55,6 @@ namespace Transferalize
 
         public async Task UpdateChart()
         {
-            //HasChange = true;
-            //StateHasChanged();
             object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
             SetOptionsByParameters(config);
             await JSInterop.InvokeAsync<object>("RunTSUpdateChart", ChartOpts);

@@ -33,7 +33,6 @@ namespace Transferalize
             {
                 SetOptionsByParameters();
                 await JSInterop.InvokeAsync<string>("RunTSDatepicker", TSDatepickerContainer, DpkrOpts);
-                //await JSInterop.InvokeAsync<string>("M.updateTextFields");
                 StateHasChanged();
             }
         }

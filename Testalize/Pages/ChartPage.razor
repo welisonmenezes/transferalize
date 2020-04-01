@@ -8,7 +8,7 @@
 </div>
 
 <br />
-<TSChart Id="my-chart-2" ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" @ref="Ref2" />
+<TSChart ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" @ref="Ref2" />
 <div>
     <button type="button" @onclick="(() => HandleButtonClick(Ref2))" class="btn">Atualizar Gráfico</button>
 </div>
@@ -64,13 +64,13 @@
         ChartDatas.Add(ChartDataTwo);
     }
 
-    private void HandleButtonClick(TSChart ElRef)
+    private async void HandleButtonClick(TSChart ElRef)
     {
         ChartDataOne.Clear();
         ChartDataTwo.Clear();
         ChartDatas.Clear();
         FillChartData();
-        ElRef.UpdateChart();
+        await ElRef.UpdateChart();
     }
 
     private int RandomNumber(int min, int max)

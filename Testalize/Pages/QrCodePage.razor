@@ -18,7 +18,7 @@
 
     private async Task CreateCode(MouseEventArgs e)
     {
-        MyQrCode.UpdateCode(RandomString(10));
+        await MyQrCode.UpdateCode(RandomString(10));
     }
 
     private Random random = new Random();

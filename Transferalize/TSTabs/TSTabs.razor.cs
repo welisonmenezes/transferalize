@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 
@@ -18,7 +17,7 @@ namespace Transferalize
         {
             if (firstRender)
             {
-                _ = await JSInterop.InvokeAsync<object>("RunTSTabs", TSTabsContainer);
+                await JSInterop.InvokeAsync<object>("RunTSTabs", TSTabsContainer);
                 StateHasChanged();
             }
         }
