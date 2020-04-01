@@ -9,8 +9,9 @@ namespace Transferalize
 
     public class TSChartBase : ComponentBase
     {
-
         public ElementReference TSChartContainer;
+
+        public bool HasChange { get; set; } = true;
 
         public TSChartOptions ChartOpts { get; set; }
 
@@ -28,16 +29,18 @@ namespace Transferalize
         [Parameter]
         public List<object> Data { get; set; } = null;
 
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            if (firstRender || HasChange)
             {
+                
                 object config = await JSInterop.InvokeAsync<object>(ConfigMethodName);
 
                 SetOptionsByParameters(config);
                 await JSInterop.InvokeAsync<object>("RunTSChart", TSChartContainer, ChartOpts);
+
                 StateHasChanged();
+                HasChange = false;
             }
         }
 
@@ -53,5 +56,11 @@ namespace Transferalize
             };
         }
 
+        public void UpdateChart()
+        {
+            HasChange = true;
+            StateHasChanged();
+        }
+ 
     }
 }
