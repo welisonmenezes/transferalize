@@ -13,6 +13,24 @@
 .datepicker-controls .select-month input {
     width: 85px;
 }
+.datepicker-open {
+    display: block;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    background: url(../img/calendar.png) no-repeat center;
+    background-color: transparent !important;
+}
+
+.TSDatepicker .input-field {
+    position: relative;
+}
+    .TSDatepicker .input-field .datepicker-open {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+    }
 
 .flatpickr-current-month {
     display: flex;

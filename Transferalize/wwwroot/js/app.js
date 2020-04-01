@@ -441,7 +441,7 @@ function _createButtonElement(datepicker) {
     var btn = document.createElement("BUTTON");
     btn.setAttribute('class', 'datepicker-open');
     btn.setAttribute('type', 'button');
-    btn.innerHTML = "Abrir";
+    //btn.innerHTML = "Abrir";
     [].forEach.call(datepicker, function (element) {
         element.parentNode.insertBefore(btn, element.nextSibling);
     });
