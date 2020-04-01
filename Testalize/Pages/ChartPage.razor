@@ -2,30 +2,55 @@
 
 <h3>TSChart</h3>
 
-<TSChart ConfigMethodName="GetChatConfig" Type="bar"  />
-@test
+<TSChart ConfigMethodName="GetChatConfig" Type="line" Data="ChartDatas" />
 
-@inject IJSRuntime JSRuntime
-@using System.Text.Json
-@using System.Text.Json.Serialization
+@using System.Collections.Generic
 
 @code {
 
     public TSChart Ref;
 
-    public object config = null;
-    public string test = "primeiro";
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender) { 
-            //config = await JSRuntime.InvokeAsync<object>("GetChatConfig");
-            //await JSRuntime.InvokeAsync<object>("RunTSChart", Ref, config);
-            //StateHasChanged();
-        }
-
-        //object jsObj = JsonSerializer.Deserialize<object>(_);
-        //await JSRuntime.InvokeAsync<string>("console.log", _);
-        //object config = config;
+        FillChartData();
     }
+
+    List<ChartModel> ChartDataOne = new List<ChartModel>();
+    List<ChartModel> ChartDataTwo = new List<ChartModel>();
+    List<object> ChartDatas = new List<object>();
+
+    private void FillChartData() {
+        // chart one
+        ChartDataOne.Add( new ChartModel{X = 1, Y = 100} );
+        ChartDataOne.Add( new ChartModel{X = 2, Y = 21} );
+        ChartDataOne.Add( new ChartModel{X = 3, Y = 76} );
+        ChartDataOne.Add( new ChartModel{X = 4, Y = 66} );
+        ChartDataOne.Add( new ChartModel{X = 5, Y = 9} );
+        ChartDataOne.Add( new ChartModel{X = 6, Y = 94} );
+        ChartDataOne.Add( new ChartModel{X = 7, Y = 12} );
+        ChartDataOne.Add( new ChartModel{X = 8, Y = 53} );
+        ChartDataOne.Add( new ChartModel{X = 9, Y = 87} );
+        ChartDataOne.Add( new ChartModel{X = 10, Y = 77} );
+        ChartDataOne.Add( new ChartModel{X = 11, Y = 19} );
+        ChartDataOne.Add( new ChartModel{X = 12, Y = 92} );
+
+        // chart two
+        ChartDataTwo.Add( new ChartModel{X = 1, Y = 65} );
+        ChartDataTwo.Add( new ChartModel{X = 2, Y = 44} );
+        ChartDataTwo.Add( new ChartModel{X = 3, Y = 36} );
+        ChartDataTwo.Add( new ChartModel{X = 4, Y = 90} );
+        ChartDataTwo.Add( new ChartModel{X = 5, Y = 23} );
+        ChartDataTwo.Add( new ChartModel{X = 6, Y = 1} );
+        ChartDataTwo.Add( new ChartModel{X = 7, Y = 18} );
+        ChartDataTwo.Add( new ChartModel{X = 8, Y = 54} );
+        ChartDataTwo.Add( new ChartModel{X = 9, Y = 22} );
+        ChartDataTwo.Add( new ChartModel{X = 10, Y = 99} );
+        ChartDataTwo.Add( new ChartModel{X = 11, Y = 71} );
+        ChartDataTwo.Add( new ChartModel{X = 12, Y = 60} );
+
+        // chart datas
+        ChartDatas.Add(ChartDataOne);
+        ChartDatas.Add(ChartDataTwo);
+    }
+
 }

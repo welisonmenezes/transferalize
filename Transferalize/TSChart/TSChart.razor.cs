@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Transferalize
@@ -24,6 +25,9 @@ namespace Transferalize
         [Parameter]
         public int Height { get; set; } = 300;
 
+        [Parameter]
+        public List<object> Data { get; set; } = null;
+
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -44,7 +48,8 @@ namespace Transferalize
                 ConfigMethodName = ConfigMethodName,
                 Configurations = config,
                 Type = Type,
-                Height = Height
+                Height = Height,
+                Data = Data
             };
         }
 

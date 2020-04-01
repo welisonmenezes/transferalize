@@ -293,20 +293,24 @@ RunTSModal = function (TSModalContainer, options) {
 
 
 RunTSChart = function (TSChartContainer, options) {
-    console.log(TSChartContainer, options);
-    //*
     var chart = TSChartContainer.querySelector('canvas');
     if (chart) {
         var ctx = chart.getContext('2d');
         var config = options.configurations;
 
+        // general options
         chart.style.height = options.height + 'px';
-
         config.type = options.type;
+
+        // dataset
+        config.data.datasets.forEach(function (item, index) {
+            if (options.data[index]) {
+                item.data = options.data[index];
+            }
+        });
 
         new Chart(ctx, config);
     }
-    //*/
 }
 
 
