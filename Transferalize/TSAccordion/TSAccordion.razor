@@ -1,4 +1,6 @@
 ﻿@namespace Transferalize
 @inherits TSAccordionBase
 
-<div @ref="TSAccordionContainer" class="TSAccordion"></div>
+<ul @ref="TSAccordionContainer" class="collapsible TSAccordion @Type">
+    @ChildContent
+</ul>

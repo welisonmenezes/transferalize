@@ -10,12 +10,18 @@ namespace Transferalize
 
         public ElementReference TSAccordionContainer;
 
+        [Parameter]
+        public RenderFragment ChildContent { get; set; }
+
         public TSAccordionOptions AccordionOpts { get; set; }
 
         [Inject] protected IJSRuntime JSInterop { get; set; }
 
         [Parameter]
-        public string Text { get; set; } = "";
+        public string Type { get; set; } = "";
+
+        [Parameter]
+        public bool Accordion { get; set; } = true;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -31,7 +37,8 @@ namespace Transferalize
         {
             AccordionOpts = new TSAccordionOptions
             {
-                Text = Text
+                Type = Type,
+                Accordion = Accordion
             };
         }
 
