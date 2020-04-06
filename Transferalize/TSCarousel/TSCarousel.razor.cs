@@ -39,6 +39,9 @@ namespace Transferalize
         [Parameter]
         public int Shift { get; set; } = 10;
 
+        [Parameter]
+        public string Type { get; set; } = "";
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)

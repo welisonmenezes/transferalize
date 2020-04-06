@@ -10,5 +10,6 @@
         public bool NoWrap { get; set; }
         public int Padding { get; set; }
         public int Shift { get; set; }
+        public string Type { get; set; }
     }
 }

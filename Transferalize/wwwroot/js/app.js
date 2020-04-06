@@ -201,7 +201,7 @@ RunTSTabs = function (TSTabsContainer) {
 
 RunTSCarousel = function (TSCarouselContainer, options) {
 
-    var elems = TSCarouselContainer.querySelectorAll('.carousel'),
+    var elems = TSCarouselContainer,
         imgs = TSCarouselContainer.querySelectorAll('img'),
         len = imgs.length,
         counter = 0;
