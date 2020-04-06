@@ -338,6 +338,10 @@ RunTSUpdateChart = function (options) {
 }
 
 
+RunTSAccordion = function (TSAccordionContainer, options) {
+    console.log(TSAccordionContainer, options);
+}
+
 
 
 
